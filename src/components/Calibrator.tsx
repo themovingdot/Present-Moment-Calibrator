@@ -6,6 +6,7 @@ import {
   selectMantraByPattern,
   selectMantraByCategory,
 } from '../utils/selector';
+import { getCategoryColor } from '../utils/colors';
 import { PatternView } from './PatternView';
 import './Calibrator.css';
 
@@ -96,15 +97,30 @@ export const Calibrator = () => {
             <div className="select-section">
               <div className="select-label">Select Category</div>
               <div className="select-options">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    className="select-option"
-                    onClick={() => handleCategorySelect(category)}
-                  >
-                    {category}
-                  </button>
-                ))}
+                {categories.map((category) => {
+                  const colors = getCategoryColor(category);
+                  return (
+                    <button
+                      key={category}
+                      className="select-option"
+                      onClick={() => handleCategorySelect(category)}
+                      style={{
+                        borderColor: colors.primary,
+                        color: colors.primary,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = `0 0 20px ${colors.glow}`;
+                        e.currentTarget.style.background = colors.bg;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = '';
+                        e.currentTarget.style.background = '';
+                      }}
+                    >
+                      {category}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -123,18 +139,46 @@ export const Calibrator = () => {
           </div>
         )}
 
-        {viewMode === 'display' && currentMantra && (
-          <div className="display-view">
-            <div className="display-category">{currentMantra.category}</div>
-            <div className="display-content">{currentMantra.content}</div>
-            <div className="display-actions">
-              <button onClick={handleBack}>← Back</button>
-              <button className="primary" onClick={handleComplete}>
-                Complete
-              </button>
+        {viewMode === 'display' && currentMantra && (() => {
+          const colors = getCategoryColor(currentMantra.category);
+          return (
+            <div className="display-view">
+              <div
+                className="display-category"
+                style={{
+                  borderColor: colors.primary,
+                  color: colors.primary,
+                  boxShadow: `0 0 20px ${colors.glow}`,
+                }}
+              >
+                {currentMantra.category}
+              </div>
+              <div
+                className="display-content"
+                style={{
+                  background: colors.bg,
+                  borderLeft: `3px solid ${colors.primary}`,
+                  paddingLeft: '20px',
+                }}
+              >
+                {currentMantra.content}
+              </div>
+              <div className="display-actions">
+                <button onClick={handleBack}>← Back</button>
+                <button
+                  className="primary"
+                  onClick={handleComplete}
+                  style={{
+                    borderColor: colors.primary,
+                    color: colors.primary,
+                  }}
+                >
+                  Complete
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {viewMode === 'pattern' && pattern && (
           <PatternView pattern={pattern} />
