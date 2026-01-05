@@ -66,6 +66,68 @@ npm run dev
 npm run build
 ```
 
+## 部署到Vercel
+
+### 一键部署
+
+点击下面的按钮，一键部署到Vercel：
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/themovingdot/Present-Moment-Calibrator)
+
+### 手动部署
+
+1. **Fork或Clone这个仓库**
+
+2. **在Vercel中导入项目**
+   - 访问 [vercel.com](https://vercel.com)
+   - 点击 "Add New Project"
+   - 选择你的仓库
+
+3. **配置项目**
+   - Framework Preset: Vite
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+
+4. **部署**
+   - 点击 "Deploy"
+   - 等待构建完成
+   - 访问你的部署链接
+
+### 环境要求
+
+- Node.js 18+
+- npm 9+
+
+### 部署后
+
+部署成功后，你可以：
+- 访问生产环境URL
+- 设置自定义域名
+- 每次推送代码时自动重新部署
+
+## 其他部署选项
+
+### Netlify
+
+```bash
+npm run build
+# 上传 dist 目录到 Netlify
+```
+
+### GitHub Pages
+
+1. 修改 `vite.config.ts` 添加 base 路径
+2. 运行 `npm run build`
+3. 部署 `dist` 目录到 GitHub Pages
+
+### 静态服务器
+
+```bash
+npm run build
+npm run preview  # 预览生产构建
+```
+
 ## 使用方法
 
 1. **选择类别**：点击任意类别按钮，查看相应的咒语
